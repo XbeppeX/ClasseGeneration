@@ -2,11 +2,11 @@
 int numeroAlunni = 0;
 string[] arrayNomi = new string[postiAula];
 string[] arrayCognomi = new string[postiAula];
-string[] arrayEta = new string[postiAula];
+int[] arrayEta = new int[postiAula];
 
 
 //-------- Funzioni ----------
-void StampaArray(string[] array)
+void StampaArrayStringhe(string[] array)
 {
     int ultimoIndiceArray = array.Length - 1;
     Console.Write("[");
@@ -24,7 +24,43 @@ void StampaArray(string[] array)
     Console.WriteLine("]");
 }
 
-void AggiungiAlunno(string nomi, string cognomi, string eta)
+void StampaArrayNumeri(int[] array)
+{
+    int ultimoIndiceArray = array.Length - 1;
+    Console.Write("[");
+    for (int i = 0; i < array.Length; i++)
+    {
+        if (i == ultimoIndiceArray)
+        {
+            Console.Write(array[i]);
+        }
+        else
+        {
+            Console.Write(array[i] + ", ");
+        }
+    }
+    Console.WriteLine("]");
+}
+
+void StampaArrayDouble(double[] array)
+{
+    int ultimoIndiceArray = array.Length - 1;
+    Console.Write("[");
+    for (int i = 0; i < array.Length; i++)
+    {
+        if (i == ultimoIndiceArray)
+        {
+            Console.Write(array[i]);
+        }
+        else
+        {
+            Console.Write(array[i] + ", ");
+        }
+    }
+    Console.WriteLine("]");
+}
+
+void AggiungiAlunno(string nomi, string cognomi, int eta)
 {
     if (numeroAlunni < postiAula)
     {
@@ -46,11 +82,32 @@ void DecrementoAlunno()
         numeroAlunni--;
         arrayNomi[numeroAlunni] = "";
         arrayCognomi[numeroAlunni] = "";
-        arrayEta[numeroAlunni] = "";
+        arrayEta[numeroAlunni] = 0;
     } else
     {
         Console.WriteLine("Mi dispiace non hai più alunni");
     }
+}
+
+double CalcoloMedia(int somma, int numeroAlunni)
+{
+    double nuovoNumeroAlunni = Convert.ToDouble(numeroAlunni);
+    double risultato = somma / nuovoNumeroAlunni;
+    return risultato;
+}
+
+
+int SommaElementiArray(int[] array)
+{
+    
+    int sum = 0;
+
+    foreach (int item in array)
+    {
+        sum += item;
+    }
+
+    return sum;
 }
 
 //-------- Programma ---------
@@ -70,7 +127,7 @@ while (true)
             Console.WriteLine("Dimmi cognome: ");
             string cognomeAlunno = Console.ReadLine();
             Console.WriteLine("Dimmi eta: ");
-            string etaAlunno = Console.ReadLine();
+            int etaAlunno = Convert.ToInt32(Console.ReadLine());
             AggiungiAlunno(nomeAlunno, cognomeAlunno, etaAlunno);
             break;
         case "rimuovi":
@@ -83,11 +140,36 @@ while (true)
 
     Console.WriteLine("Il numero di alunni è: " + numeroAlunni);
     Console.WriteLine("Nomi alunni: ");
-    StampaArray(arrayNomi);
+    StampaArrayStringhe(arrayNomi);
     Console.WriteLine("Cognomi alunni: ");
-    StampaArray(arrayCognomi);
+    StampaArrayStringhe(arrayCognomi);
     Console.WriteLine("Età alunni: ");
-    StampaArray(arrayEta);
+    StampaArrayNumeri(arrayEta);
+    int sommaEta = SommaElementiArray(arrayEta);
+    double media = CalcoloMedia(sommaEta, numeroAlunni);
+    Console.WriteLine("Età media alunni: " + (double)media);
+
+
+    /*
+    StampaArrayDouble(CalcolaEtaMediaClasse(arrayEta));
+    Console.WriteLine("Età media alunni: " + CalcolaEtaMediaClasse(arrayEta));
+
+    double risultato = 55 / 2f;
+    Console.WriteLine((double)risultato);
+
+    double media1 = CalcoloMedia(55, 2);
+    Console.WriteLine("Età media alunni: " + (double)media1);
+
+    double CalcolaEtaMediaClasse(int[] array)
+        {
+            for (int i=0; i<array.Length; i++)
+            {
+                array[i] = CalcoloMedia(array[i], numeroAlunni);
+            }
+            return array;
+        }
+    */
+
 }
 
 
